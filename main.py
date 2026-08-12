@@ -12,6 +12,7 @@ import os
 import qrcode
 import io
 from PIL import Image, ImageDraw
+import certifi
 
 # --- CONFIGURATION ---
 TOKEN = "8756542169:AAGmQN9cVOvYg5D2Yfjx0ApkbbVrXeHKji0"
@@ -22,7 +23,7 @@ ADMIN_ID = 6490035509
 
 # MongoDB Connection (Render/GitHub Actions Environment Variable ykn Default Connection String)
 MONGO_URI = os.getenv("MONGO_URI", "mongodb+srv://<username>:<password>@cluster0.xxx.mongodb.net/?retryWrites=true&w=majority")
-mongo_client = pymongo.MongoClient(MONGO_URI)
+mongo_client = pymongo.MongoClient(MONGO_URI, tlsCAFile=certifi.where())
 db = mongo_client["stars_bot_db"]
 
 # Collections (Tables)
