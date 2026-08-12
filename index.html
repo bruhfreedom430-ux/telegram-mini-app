@@ -1,482 +1,140 @@
 <!DOCTYPE html>
-<html lang="om">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lalo Telebirr & Stars Hub</title>
+    <title>LALO TECH HUB</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent-blue: #38bdf8;
-            --accent-gold: #fbbf24;
-            --accent-green: #22c55e;
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
+            --bg: #0f172a; --card: #1e293b; --accent: #38bdf8; --text: #f1f5f9;
         }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; padding: 15px; margin: 0; padding-bottom: 90px; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .header { text-align: center; margin-bottom: 20px; }
+        .card { background: var(--card); border-radius: 16px; padding: 20px; margin-bottom: 15px; border: 1px solid #334155; }
+        
+        h2 { color: var(--accent); margin-top: 0; font-size: 1.2rem; }
+        p { font-size: 0.9rem; line-height: 1.6; color: #cbd5e1; }
+        
+        .nav { position: fixed; bottom: 0; left: 0; right: 0; background: #090d16; display: flex; justify-content: space-around; padding: 15px; border-top: 1px solid #334155; }
+        .btn-nav { background: none; border: none; color: #94a3b8; font-weight: bold; cursor: pointer; }
+        .btn-nav.active { color: var(--accent); }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            padding: 12px;
-            padding-bottom: 80px;
-        }
-
-        /* Header Card */
-        .header-card {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 16px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            margin-bottom: 12px;
-        }
-
-        .header-card h2 {
-            font-size: 1.25rem;
-            color: #fff;
-        }
-
-        .header-card p {
-            font-size: 0.85rem;
-            color: var(--accent-blue);
-            margin-top: 4px;
-        }
-
-        /* Live Balance Bar */
-        .balance-container {
-            display: flex;
-            background-color: var(--card-bg);
-            border-radius: 14px;
-            padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 14px;
-        }
-
-        .balance-box {
-            flex: 1;
-            text-align: center;
-        }
-
-        .balance-box:first-child {
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .balance-title {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: var(--text-sub);
-        }
-
-        .balance-value {
-            font-size: 1.15rem;
-            font-weight: bold;
-            margin-top: 4px;
-        }
-
-        /* Bottom Navigation Bar Fix */
-        .nav-tabs {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: #090d16;
-            display: flex;
-            justify-content: space-around;
-            padding: 6px 0 10px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 100;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            color: var(--text-sub);
-            font-size: 0.7rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            cursor: pointer;
-            width: 25%;
-        }
-
-        .tab-btn.active {
-            color: var(--accent-blue);
-            font-weight: bold;
-        }
-
-        .tab-btn span {
-            font-size: 1.1rem;
-            line-height: 1;
-        }
-
-        /* Tab Content Views */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Cards & Lists */
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .card-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--accent-blue);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .package-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .package-info strong {
-            display: block;
-            font-size: 0.9rem;
-        }
-
-        .package-info span {
-            font-size: 0.78rem;
-            color: var(--text-sub);
-        }
-
-        .action-btn {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
-
-        .action-btn:active {
-            transform: scale(0.96);
-        }
-
-        /* Form Controls */
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.78rem;
-            color: var(--text-sub);
-            margin-bottom: 4px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 10px 12px;
-            background-color: #0f172a;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            color: white;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .form-control:focus {
-            border-color: var(--accent-blue);
-        }
-
-        .btn-full {
-            width: 100%;
-            padding: 12px;
-            font-size: 0.9rem;
-            border-radius: 8px;
-            margin-top: 6px;
-        }
-
-        /* About / Creator Info Box */
-        .about-text {
-            font-size: 0.82rem;
-            color: var(--text-sub);
-            line-height: 1.5;
-            margin-bottom: 10px;
-        }
-
-        .lang-badge {
-            display: inline-block;
-            background: rgba(56, 189, 248, 0.15);
-            color: var(--accent-blue);
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; font-size: 0.85rem; }
+        
+        .bio-text { white-space: pre-line; }
     </style>
 </head>
 <body>
 
-    <!-- Header Card -->
-    <div class="header-card">
-        <h2>⭐ Lalo Stars & Telebirr Hub</h2>
-        <p>Baga nagaan dhufte, <span id="user-display-name">User</span>!</p>
-    </div>
-
-    <!-- Live Balance Bar -->
-    <div class="balance-container">
-        <div class="balance-box">
-            <div class="balance-title">Stars Balance</div>
-            <div class="balance-value" style="color: var(--accent-gold);">⭐ <span id="stars-val">150</span></div>
-        </div>
-        <div class="balance-box">
-            <div class="balance-title">Telebirr Wallet</div>
-            <div class="balance-value" style="color: var(--accent-green);">ETB <span id="telebirr-val">0.00</span></div>
-        </div>
-    </div>
-
-    <!-- TAB 1: HOME -->
+    <!-- HOME TAB -->
     <div id="tab-home" class="tab-content active">
+        <div class="header">
+            <h2>🚀 LALO TECH - Digital Services</h2>
+        </div>
+        
         <div class="card">
-            <div class="card-title">🚀 Tajaajiloota Ijoo</div>
-            <div class="package-item" onclick="switchTab('stars')">
-                <div class="package-info">
-                    <strong>⭐ Buy Telegram Stars</strong>
-                    <span>Telegram Stars bitachuuf</span>
-                </div>
-                <button class="action-btn">Biti</button>
-            </div>
-            <div class="package-item" onclick="switchTab('telebirr')">
-                <div class="package-info">
-                    <strong>📲 Telebirr Deposit</strong>
-                    <span>Qarshii accountitti galchuuf</span>
-                </div>
-                <button class="action-btn" style="background: #16a34a;">Deposit</button>
-            </div>
+            <h2>🇬🇧 About Our Bot</h2>
+            <p>Welcome to Lalo Tech, your secure and automated platform for digital transactions.</p>
+            <ul>
+                <li><b>Referral System:</b> Earn bonuses by inviting friends.</li>
+                <li><b>Withdrawals:</b> Automated payouts with clear Min/Max limits.</li>
+                <li><b>Transfer:</b> Easily send funds to other users.</li>
+                <li><b>Support:</b> Type /help to chat with Admin.</li>
+                <li><b>Security:</b> Mandatory QR & Unique TXID verification for all payments. No fraud allowed.</li>
+                <li><b>Copyright:</b> All rights reserved to Lalo Tech.</li>
+            </ul>
         </div>
 
         <div class="card">
-            <div class="card-title">ℹ️ Information / Odeeffannoo</div>
-            <div class="lang-badge">ENGLISH</div>
-            <p class="about-text">
-                Welcome to <strong>Lalo Telebirr & Stars Hub</strong>! This platform allows you to conveniently purchase Telegram Stars and top-up your digital wallet using Telebirr.
-            </p>
-            <div class="lang-badge">አማርኛ</div>
-            <p class="about-text">
-                እንኳን ወደ <strong>ላሎ ቴሌብር እና ስታርስ ሀብ</strong> በሰላም መጡ! ይህ መተግበሪያ የቴሌግራም ስታርስ በቴሌብር በቀላሉ ለመግዛት እና ክፍያዎችን ለማስተዳደር የተዘጋጀ ነው።
-            </p>
+            <h2>🇪🇹 ስለ ቦቱ መረጃ</h2>
+            <p>ወደ ላሎ ቴክ እንኳን በደህና መጡ! አስተማማኝ እና ፈጣን አገልግሎት።</p>
+            <ul>
+                <li><b>ሪፈራል፡</b> ጓደኞችዎን በመጋበዝ ሽልማት ያግኙ።</li>
+                <li><b>ክፍያ (Withdrawal):</b> ዝቅተኛ እና ከፍተኛ ገደብ ያለው።</li>
+                <li><b>ገንዘብ ማስተላለፍ፡</b> ለጓደኛዎ በቀላሉ ይላኩ።</li>
+                <li><b>እገዛ (Support):</b> ማንኛውም ጥያቄ ካለዎት /help ይጻፉ።</li>
+                <li><b>ደህንነት (Security):</b> ክፍያዎች ሁሉ በQR እና በልዩ TXID ይረጋገጣሉ፤ ማጭበርበር በፍጹም አይቻልም።</li>
+                <li><b>የቅጂ መብት፡</b> የላሎ ቴክ ንብረት ነው።</li>
+            </ul>
         </div>
     </div>
 
-    <!-- TAB 2: BUY STARS -->
-    <div id="tab-stars" class="tab-content">
+    <!-- CREATOR TAB -->
+    <div id="tab-creator" class="tab-content">
         <div class="card">
-            <div class="card-title">⭐ Stars Packages</div>
+            <h2>👨‍💻 Creator Profile</h2>
+            <p class="bio-text">🫵Hey Guys I'm not a robot.I'm not a scammer🚫
+            ✅100% real buyer and seller man😊I am trusted
             
-            <div class="package-item">
-                <div class="package-info">
-                    <strong>50 Stars</strong>
-                    <span>ETB 120.00</span>
-                </div>
-                <button class="action-btn" onclick="buyStars(50, 120)">Bitadhu</button>
-            </div>
-
-            <div class="package-item">
-                <div class="package-info">
-                    <strong>100 Stars</strong>
-                    <span>ETB 230.00</span>
-                </div>
-                <button class="action-btn" onclick="buyStars(100, 230)">Bitadhu</button>
-            </div>
-
-            <div class="package-item">
-                <div class="package-info">
-                    <strong>500 Stars</strong>
-                    <span>ETB 1,100.00</span>
-                </div>
-                <button class="action-btn" onclick="buyStars(500, 1100)">Bitadhu</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAB 3: TELEBIRR -->
-    <div id="tab-telebirr" class="tab-content">
-        <div class="card">
-            <div class="card-title">📲 Telebirr Payment / Recharge</div>
-            <div class="form-group">
-                <label>Lakkoofsa Bilbilaa Telebirr</label>
-                <input type="number" id="phone-num" class="form-control" placeholder="09........">
-            </div>
-            <div class="form-group">
-                <label>Hanga Qarshii (ETB)</label>
-                <input type="number" id="amount-etb" class="form-control" placeholder="fkn. 100">
-            </div>
-            <button class="action-btn btn-full" style="background: #16a34a;" onclick="processTelebirr()">Send Request to Bot</button>
-        </div>
-    </div>
-
-    <!-- TAB 4: CREATOR & ACCOUNT -->
-    <div id="tab-account" class="tab-content">
-        <div class="card">
-            <div class="card-title">👨‍💻 Creator Profile / Eenyummaa Bot</div>
+            ♻️this is about me👇
+            ❇️ NAME : Lalisa Kajela (Lalo)
+            ☎️ PHONE : Not required😁
+            🛐 RELIGION : Protestant✝️😊
+            🌎 LOCATION : አያስፈልግም🇪🇹
+            🗣️LANGUAGE : 🗣️Oromoo 100%😊
+            🗣️Amharic 100%🤭
+            🗣️English 50%😫
             
-            <div class="lang-badge">ENGLISH</div>
-            <p class="about-text">
-                <strong>Developer:</strong> Lalisa Kajela Tamane (Lalo)<br>
-                <strong>System:</strong> Telegram Mini App & Automated Bot Service Integration. Designed for fast and reliable digital asset processing.
-            </p>
-
-            <div class="lang-badge">አማርኛ</div>
-            <p class="about-text">
-                <strong>አልማሚ (Developer):</strong> ላሊሳ ካጄላ ታማኔ (ላሎ)<br>
-                <strong>ዓላማ:</strong> ይህ ቦት እና ሚኒ አፕ ተጠቃሚዎች የቴሌግራም ስታርስ እና የቴሌብር ክፍያዎችን በቀላሉ እና በተላላፊ ሁኔታ እንዲፈጽሙ የተዘጋጀ ነው።
-            </p>
+            📚 EDUCATIONAL LEVEL : I have already completed 12th grade examination🤭
+            
+            💬 USERNAME :
+            My Main Acc..👉 @Lalo_Kajela &
+            My Second Acc..👉 @Laly_Kajela
+            
+            🌟 Age : 19+
+            
+            🪬SKILL : 🎴VPN Server Creator
+            📸 Photo grapher
+            💻 Photo and video editor
+            📡 Dish installation👉about server and etc.......
+            
+            CHELSEA is my fav club😊it is the pride of LONDON🔵
+            
+            ♻️ My Telegram Channel
+            🪬 @LALO_TECH
+            🪬 @LALO_SUPPORT_BOT
+            
+            ❤️‍🔥Sorry my best friends on tg are many. so I can't count🥺
+            🙏Thanks for reading my bio🙂</p>
         </div>
 
         <div class="card">
-            <div class="card-title">👤 Telegram User Info</div>
-            <p style="font-size: 0.82rem; margin-bottom: 6px;">Name: <strong id="acc-name">-</strong></p>
-            <p style="font-size: 0.82rem;">User ID: <strong id="acc-id">-</strong></p>
-        </div>
-
-        <div class="card">
-            <div class="card-title">📜 Transaction Log</div>
-            <div id="history-list" style="font-size: 0.8rem; color: var(--text-sub);">
-                Hanga ammaatti kaffaltiin hin raawwatamne.
-            </div>
+            <h2>👤 Your Telegram Info</h2>
+            <p>Name: <span id="u-name">...</span></p>
+            <p>ID: <span id="u-id">...</span></p>
+            <p>Username: <span id="u-user">...</span></p>
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
-    <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('home')">
-            <span>🏠</span> Home
-        </button>
-        <button class="tab-btn" onclick="switchTab('stars')">
-            <span>⭐</span> Stars
-        </button>
-        <button class="tab-btn" onclick="switchTab('telebirr')">
-            <span>📲</span> Telebirr
-        </button>
-        <button class="tab-btn" onclick="switchTab('account')">
-            <span>👤</span> Creator
-        </button>
+    <!-- NAVIGATION -->
+    <div class="nav">
+        <button class="btn-nav active" onclick="switchTab('home')">🏠 HOME</button>
+        <button class="btn-nav" onclick="switchTab('creator')">👨‍💻 CREATOR</button>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
-        tg.ready();
 
-        let starsBalance = 150;
-        let telebirrBalance = 0;
-
-        // User Data Set Gochuu
-        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        // Populate User Info
+        if(tg.initDataUnsafe.user) {
             const u = tg.initDataUnsafe.user;
-            document.getElementById('user-display-name').innerText = u.first_name;
-            document.getElementById('acc-name').innerText = u.first_name + (u.last_name ? " " + u.last_name : "");
-            document.getElementById('acc-id').innerText = u.id;
+            document.getElementById('u-name').innerText = u.first_name + (u.last_name ? " " + u.last_name : "");
+            document.getElementById('u-id').innerText = u.id;
+            document.getElementById('u-user').innerText = "@" + (u.username || "No Username");
         }
 
-        // Tab Switching
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-
-            document.getElementById('tab-' + tabName).classList.add('active');
-            
-            const btnIndex = { 'home': 0, 'stars': 1, 'telebirr': 2, 'account': 3 }[tabName];
-            document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
-        }
-
-        // Buy Stars Action (Sends JSON payload directly to Telegram Bot Backend)
-        function buyStars(amount, price) {
-            tg.showConfirm(`⭐ ${amount} Stars ETB ${price}-n bitachuuf ajaja gara Bot'tti erguu ni barbaaddaa?`, function(confirmed) {
-                if (confirmed) {
-                    starsBalance += amount;
-                    document.getElementById('stars-val').innerText = starsBalance;
-                    addHistory(`Order Sent: ⭐ ${amount} Stars (ETB ${price})`);
-
-                    // Bot-f Data erguu
-                    const payload = {
-                        action: "buy_stars",
-                        stars: amount,
-                        price_etb: price,
-                        user_id: tg.initDataUnsafe?.user?.id || null
-                    };
-                    
-                    tg.sendData(JSON.stringify(payload));
-                }
-            });
-        }
-
-        // Telebirr Process Action
-        function processTelebirr() {
-            const phone = document.getElementById('phone-num').value;
-            const amount = parseFloat(document.getElementById('amount-etb').value);
-
-            if (!phone || phone.length < 9) {
-                tg.showAlert("Maaloo lakkoofsa bilbilaa sirrii galchaa!");
-                return;
-            }
-            if (!amount || amount <= 0) {
-                tg.showAlert("Maaloo hanga qarshii sirrii galchaa!");
-                return;
-            }
-
-            telebirrBalance += amount;
-            document.getElementById('telebirr-val').innerText = telebirrBalance.toFixed(2);
-            addHistory(`Deposit Request: ETB ${amount.toFixed(2)} (${phone})`);
-
-            // Bot-f Data erguu
-            const payload = {
-                action: "telebirr_deposit",
-                phone: phone,
-                amount_etb: amount,
-                user_id: tg.initDataUnsafe?.user?.id || null
-            };
-
-            tg.sendData(JSON.stringify(payload));
-
-            document.getElementById('phone-num').value = '';
-            document.getElementById('amount-etb').value = '';
-        }
-
-        function addHistory(text) {
-            const hist = document.getElementById('history-list');
-            if (hist.innerText.includes("Hanga ammaatti")) {
-                hist.innerHTML = '';
-            }
-            const div = document.createElement('div');
-            div.style.padding = '6px 0';
-            div.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
-            div.innerText = "• " + text;
-            hist.prepend(div);
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            event.currentTarget.classList.add('active');
         }
     </script>
 </body>
