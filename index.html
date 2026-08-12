@@ -27,7 +27,7 @@
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             padding: 12px;
-            padding-bottom: 70px;
+            padding-bottom: 80px;
         }
 
         /* Header Card */
@@ -42,7 +42,7 @@
         }
 
         .header-card h2 {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             color: #fff;
         }
 
@@ -52,14 +52,14 @@
             margin-top: 4px;
         }
 
-        /* Balance Section */
+        /* Live Balance Bar */
         .balance-container {
             display: flex;
             background-color: var(--card-bg);
             border-radius: 14px;
-            padding: 14px;
+            padding: 12px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .balance-box {
@@ -72,19 +72,18 @@
         }
 
         .balance-title {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             color: var(--text-sub);
-            letter-spacing: 0.5px;
         }
 
         .balance-value {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: bold;
             margin-top: 4px;
         }
 
-        /* Navigation Tabs */
+        /* Bottom Navigation Bar Fix */
         .nav-tabs {
             position: fixed;
             bottom: 0;
@@ -93,7 +92,7 @@
             background-color: #090d16;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 6px 0 10px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 100;
         }
@@ -102,11 +101,11 @@
             background: none;
             border: none;
             color: var(--text-sub);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
             cursor: pointer;
             width: 25%;
         }
@@ -117,7 +116,8 @@
         }
 
         .tab-btn span {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            line-height: 1;
         }
 
         /* Tab Content Views */
@@ -139,10 +139,13 @@
         }
 
         .card-title {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 10px;
             color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .package-item {
@@ -158,11 +161,11 @@
 
         .package-info strong {
             display: block;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .package-info span {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: var(--text-sub);
         }
 
@@ -173,7 +176,7 @@
             padding: 8px 14px;
             border-radius: 8px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
         }
 
@@ -188,19 +191,19 @@
 
         .form-group label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: var(--text-sub);
             margin-bottom: 4px;
         }
 
         .form-control {
             width: 100%;
-            padding: 12px;
+            padding: 10px 12px;
             background-color: #0f172a;
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 8px;
             color: white;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             outline: none;
         }
 
@@ -211,17 +214,36 @@
         .btn-full {
             width: 100%;
             padding: 12px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             border-radius: 8px;
-            margin-top: 8px;
+            margin-top: 6px;
+        }
+
+        /* About / Creator Info Box */
+        .about-text {
+            font-size: 0.82rem;
+            color: var(--text-sub);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .lang-badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-blue);
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 4px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Header -->
+    <!-- Header Card -->
     <div class="header-card">
-        <h2>⭐ Lalo Stars & Telebirr</h2>
+        <h2>⭐ Lalo Stars & Telebirr Hub</h2>
         <p>Baga nagaan dhufte, <span id="user-display-name">User</span>!</p>
     </div>
 
@@ -244,23 +266,28 @@
             <div class="package-item" onclick="switchTab('stars')">
                 <div class="package-info">
                     <strong>⭐ Buy Telegram Stars</strong>
-                    <span>Stars tolaa fi madaalawaa bitachuuf</span>
+                    <span>Telegram Stars bitachuuf</span>
                 </div>
                 <button class="action-btn">Biti</button>
             </div>
             <div class="package-item" onclick="switchTab('telebirr')">
                 <div class="package-info">
                     <strong>📲 Telebirr Deposit</strong>
-                    <span>Qarshii wallet keettitti dabaluuf</span>
+                    <span>Qarshii accountitti galchuuf</span>
                 </div>
                 <button class="action-btn" style="background: #16a34a;">Deposit</button>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-title">📢 Odeeffannoo</div>
-            <p style="font-size: 0.85rem; color: var(--text-sub); line-height: 1.4;">
-                Mini App kana keessatti tajaajila Stars Bituu fi Telebirr-n kaffaltii raawwachuu salphaatti danda'tu!
+            <div class="card-title">ℹ️ Information / Odeeffannoo</div>
+            <div class="lang-badge">ENGLISH</div>
+            <p class="about-text">
+                Welcome to <strong>Lalo Telebirr & Stars Hub</strong>! This platform allows you to conveniently purchase Telegram Stars and top-up your digital wallet using Telebirr.
+            </p>
+            <div class="lang-badge">አማርኛ</div>
+            <p class="about-text">
+                እንኳን ወደ <strong>ላሎ ቴሌብር እና ስታርስ ሀብ</strong> በሰላም መጡ! ይህ መተግበሪያ የቴሌግራም ስታርስ በቴሌብር በቀላሉ ለመግዛት እና ክፍያዎችን ለማስተዳደር የተዘጋጀ ነው።
             </p>
         </div>
     </div>
@@ -299,28 +326,45 @@
     <!-- TAB 3: TELEBIRR -->
     <div id="tab-telebirr" class="tab-content">
         <div class="card">
-            <div class="card-title">📲 Telebirr Recharge</div>
+            <div class="card-title">📲 Telebirr Payment / Recharge</div>
             <div class="form-group">
-                <label>Lakkoofsa Bilbilaa (Telebirr)</label>
+                <label>Lakkoofsa Bilbilaa Telebirr</label>
                 <input type="number" id="phone-num" class="form-control" placeholder="09........">
             </div>
             <div class="form-group">
                 <label>Hanga Qarshii (ETB)</label>
                 <input type="number" id="amount-etb" class="form-control" placeholder="fkn. 100">
             </div>
-            <button class="action-btn btn-full" style="background: #16a34a;" onclick="processTelebirr()">Deposit Gochi</button>
+            <button class="action-btn btn-full" style="background: #16a34a;" onclick="processTelebirr()">Send Request to Bot</button>
         </div>
     </div>
 
-    <!-- TAB 4: ACCOUNT / HISTORY -->
+    <!-- TAB 4: CREATOR & ACCOUNT -->
     <div id="tab-account" class="tab-content">
         <div class="card">
-            <div class="card-title">👤 Account Details</div>
-            <p style="font-size: 0.85rem; margin-bottom: 6px;">Maqaa: <strong id="acc-name">-</strong></p>
-            <p style="font-size: 0.85rem;">User ID: <strong id="acc-id">-</strong></p>
+            <div class="card-title">👨‍💻 Creator Profile / Eenyummaa Bot</div>
+            
+            <div class="lang-badge">ENGLISH</div>
+            <p class="about-text">
+                <strong>Developer:</strong> Lalisa Kajela Tamane (Lalo)<br>
+                <strong>System:</strong> Telegram Mini App & Automated Bot Service Integration. Designed for fast and reliable digital asset processing.
+            </p>
+
+            <div class="lang-badge">አማርኛ</div>
+            <p class="about-text">
+                <strong>አልማሚ (Developer):</strong> ላሊሳ ካጄላ ታማኔ (ላሎ)<br>
+                <strong>ዓላማ:</strong> ይህ ቦት እና ሚኒ አፕ ተጠቃሚዎች የቴሌግራም ስታርስ እና የቴሌብር ክፍያዎችን በቀላሉ እና በተላላፊ ሁኔታ እንዲፈጽሙ የተዘጋጀ ነው።
+            </p>
         </div>
+
         <div class="card">
-            <div class="card-title">📜 Seenaa Kaffaltii (History)</div>
+            <div class="card-title">👤 Telegram User Info</div>
+            <p style="font-size: 0.82rem; margin-bottom: 6px;">Name: <strong id="acc-name">-</strong></p>
+            <p style="font-size: 0.82rem;">User ID: <strong id="acc-id">-</strong></p>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📜 Transaction Log</div>
             <div id="history-list" style="font-size: 0.8rem; color: var(--text-sub);">
                 Hanga ammaatti kaffaltiin hin raawwatamne.
             </div>
@@ -339,7 +383,7 @@
             <span>📲</span> Telebirr
         </button>
         <button class="tab-btn" onclick="switchTab('account')">
-            <span>👤</span> Account
+            <span>👤</span> Creator
         </button>
     </div>
 
@@ -351,7 +395,7 @@
         let starsBalance = 150;
         let telebirrBalance = 0;
 
-        // Telegram User Data Set Gochuu
+        // User Data Set Gochuu
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
             const u = tg.initDataUnsafe.user;
             document.getElementById('user-display-name').innerText = u.first_name;
@@ -359,7 +403,7 @@
             document.getElementById('acc-id').innerText = u.id;
         }
 
-        // Tab Switching Logic
+        // Tab Switching
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -370,14 +414,23 @@
             document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
         }
 
-        // Buy Stars Action
+        // Buy Stars Action (Sends JSON payload directly to Telegram Bot Backend)
         function buyStars(amount, price) {
-            tg.showConfirm(`⭐ ${amount} Stars ETB ${price}-n bitachuu ni barbaaddaa?`, function(confirmed) {
+            tg.showConfirm(`⭐ ${amount} Stars ETB ${price}-n bitachuuf ajaja gara Bot'tti erguu ni barbaaddaa?`, function(confirmed) {
                 if (confirmed) {
                     starsBalance += amount;
                     document.getElementById('stars-val').innerText = starsBalance;
-                    addHistory(`Bitame: ⭐ ${amount} Stars (ETB ${price})`);
-                    tg.showAlert(`Milkaa'ina: ⭐ ${amount} Stars Wallet keetti dabalameera!`);
+                    addHistory(`Order Sent: ⭐ ${amount} Stars (ETB ${price})`);
+
+                    // Bot-f Data erguu
+                    const payload = {
+                        action: "buy_stars",
+                        stars: amount,
+                        price_etb: price,
+                        user_id: tg.initDataUnsafe?.user?.id || null
+                    };
+                    
+                    tg.sendData(JSON.stringify(payload));
                 }
             });
         }
@@ -398,12 +451,20 @@
 
             telebirrBalance += amount;
             document.getElementById('telebirr-val').innerText = telebirrBalance.toFixed(2);
-            addHistory(`Deposit: ETB ${amount.toFixed(2)} (${phone})`);
-            
+            addHistory(`Deposit Request: ETB ${amount.toFixed(2)} (${phone})`);
+
+            // Bot-f Data erguu
+            const payload = {
+                action: "telebirr_deposit",
+                phone: phone,
+                amount_etb: amount,
+                user_id: tg.initDataUnsafe?.user?.id || null
+            };
+
+            tg.sendData(JSON.stringify(payload));
+
             document.getElementById('phone-num').value = '';
             document.getElementById('amount-etb').value = '';
-
-            tg.showAlert(`Milkaa'ina: ETB ${amount.toFixed(2)} Telebirr Wallet keetti dabalameera!`);
         }
 
         function addHistory(text) {
