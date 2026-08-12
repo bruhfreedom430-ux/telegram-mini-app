@@ -1,38 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="om">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stars Mini App</title>
+    <title>Stars & Telebirr Hub</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body {
-            background-color: var(--tg-theme-bg-color, #1a1a1a);
-            color: var(--tg-theme-text-color, #ffffff);
-            font-family: sans-serif;
-            text-align: center;
-            padding: 20px;
+        :root {
+            --bg: var(--tg-theme-bg-color, #0f172a);
+            --card-bg: var(--tg-theme-secondary-bg-color, #1e293b);
+            --text: var(--tg-theme-text-color, #f8fafc);
+            --hint: var(--tg-theme-hint-color, #94a3b8);
+            --accent: #38bdf8;
+            --accent-gold: #f59e0b;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .balance-container {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--card-bg);
             border-radius: 12px;
-            margin-top: 20px;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .balance-box {
+            text-align: center;
+        }
+
+        .balance-value {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--hint);
+            margin-top: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .action-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .action-card:active {
+            transform: scale(0.97);
+            border-color: var(--accent);
+        }
+
+        .icon {
+            font-size: 2rem;
+            margin-bottom: 6px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:active {
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
-    <h1>⭐ Stars Dashboard</h1>
-    <div class="card">
-        <p>Akkam, <span id="username">User</span>!</p>
-        <p>Balance: <strong>100 Stars</strong></p>
+
+    <!-- Header Section -->
+    <div class="header-card">
+        <h2 style="margin:0; font-size: 1.4rem;">⭐ Stars & Telebirr Hub</h2>
+        <p style="margin: 4px 0 0 0; color: var(--hint); font-size: 0.85rem;">Baga nagaan dhufte, <span id="user-name" style="color: var(--accent);">User</span>!</p>
     </div>
+
+    <!-- Balance Dashboard -->
+    <div class="balance-container">
+        <div class="balance-box">
+            <div class="section-title">Stars Balance</div>
+            <div class="balance-value">⭐ 150</div>
+        </div>
+        <div class="balance-box" style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 16px;">
+            <div class="section-title">Telebirr Wallet</div>
+            <div class="balance-value" style="color: #4ade80;">ETB 0.00</div>
+        </div>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="section-title">Tajaajiloota</div>
+    <div class="grid">
+        <div class="action-card" onclick="showAlert('Stars Bituu')">
+            <div class="icon">⭐</div>
+            <strong>Buy Stars</strong>
+            <p style="font-size:0.75rem; color: var(--hint); margin: 4px 0 0 0;">Telegram Stars</p>
+        </div>
+        <div class="action-card" onclick="showAlert('Telebirr Deposit')">
+            <div class="icon">📲</div>
+            <strong>Telebirr</strong>
+            <p style="font-size:0.75rem; color: var(--hint); margin: 4px 0 0 0;">Deposit & Pay</p>
+        </div>
+    </div>
+
+    <!-- Main Action Button -->
+    <button class="btn-primary" onclick="sendDataToBot()">
+        🚀 Main Action Perform
+    </button>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
+        tg.ready();
+
+        // User Data Set Gochuu
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            document.getElementById('username').innerText = tg.initDataUnsafe.user.first_name;
+            document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name;
+        }
+
+        function showAlert(msg) {
+            tg.showAlert("Tajaajila: " + msg + " dhiyootti ni saaqama!");
+        }
+
+        function sendDataToBot() {
+            tg.sendData(JSON.stringify({ action: "user_clicked_main_btn" }));
+            tg.close();
         }
     </script>
 </body>
