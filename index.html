@@ -3,174 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stars & Telebirr Hub</title>
+    <title>Lalo Telebirr & Stars Hub</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         :root {
-            --bg: var(--tg-theme-bg-color, #0f172a);
-            --card-bg: var(--tg-theme-secondary-bg-color, #1e293b);
-            --text: var(--tg-theme-text-color, #f8fafc);
-            --hint: var(--tg-theme-hint-color, #94a3b8);
-            --accent: #38bdf8;
-            --accent-gold: #f59e0b;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-blue: #38bdf8;
+            --accent-gold: #fbbf24;
+            --accent-green: #22c55e;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 12px;
+            padding-bottom: 70px;
         }
 
+        /* Header Card */
         .header-card {
             background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
-            padding: 20px;
+            padding: 16px;
             text-align: center;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            margin-bottom: 12px;
         }
 
-        .profile-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            margin-bottom: 8px;
+        .header-card h2 {
+            font-size: 1.3rem;
+            color: #fff;
         }
 
+        .header-card p {
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            margin-top: 4px;
+        }
+
+        /* Balance Section */
         .balance-container {
             display: flex;
-            justify-content: space-around;
             background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 12px;
+            border-radius: 14px;
+            padding: 14px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 16px;
         }
 
         .balance-box {
+            flex: 1;
             text-align: center;
+        }
+
+        .balance-box:first-child {
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .balance-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-sub);
+            letter-spacing: 0.5px;
         }
 
         .balance-value {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            color: var(--accent-gold);
+            margin-top: 4px;
         }
 
-        .section-title {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--hint);
-            margin-top: 8px;
+        /* Navigation Tabs */
+        .nav-tabs {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #090d16;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .action-card {
-            background-color: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            padding: 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .action-card:active {
-            transform: scale(0.97);
-            border-color: var(--accent);
-        }
-
-        .icon {
-            font-size: 2rem;
-            margin-bottom: 6px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: #ffffff;
+        .tab-btn {
+            background: none;
             border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
+            color: var(--text-sub);
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            width: 25%;
         }
 
-        .btn-primary:active {
-            opacity: 0.9;
+        .tab-btn.active {
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .tab-btn span {
+            font-size: 1.2rem;
+        }
+
+        /* Tab Content Views */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Cards & Lists */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--accent-blue);
+        }
+
+        .package-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .package-info strong {
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .package-info span {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .action-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            margin-bottom: 4px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background-color: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 12px;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            margin-top: 8px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- Top Header -->
     <div class="header-card">
-        <h2 style="margin:0; font-size: 1.4rem;">⭐ Stars & Telebirr Hub</h2>
-        <p style="margin: 4px 0 0 0; color: var(--hint); font-size: 0.85rem;">Baga nagaan dhufte, <span id="user-name" style="color: var(--accent);">User</span>!</p>
+        <h2>⭐ Lalo Stars & Telebirr</h2>
+        <p>Baga nagaan dhufte, <span id="user-display-name">User</span>!</p>
     </div>
 
-    <!-- Balance Dashboard -->
+    <!-- Live Balance Bar -->
     <div class="balance-container">
         <div class="balance-box">
-            <div class="section-title">Stars Balance</div>
-            <div class="balance-value">⭐ 150</div>
+            <div class="balance-title">Stars Balance</div>
+            <div class="balance-value" style="color: var(--accent-gold);">⭐ <span id="stars-val">150</span></div>
         </div>
-        <div class="balance-box" style="border-left: 1px solid rgba(255,255,255,0.1); padding-left: 16px;">
-            <div class="section-title">Telebirr Wallet</div>
-            <div class="balance-value" style="color: #4ade80;">ETB 0.00</div>
-        </div>
-    </div>
-
-    <!-- Services Grid -->
-    <div class="section-title">Tajaajiloota</div>
-    <div class="grid">
-        <div class="action-card" onclick="showAlert('Stars Bituu')">
-            <div class="icon">⭐</div>
-            <strong>Buy Stars</strong>
-            <p style="font-size:0.75rem; color: var(--hint); margin: 4px 0 0 0;">Telegram Stars</p>
-        </div>
-        <div class="action-card" onclick="showAlert('Telebirr Deposit')">
-            <div class="icon">📲</div>
-            <strong>Telebirr</strong>
-            <p style="font-size:0.75rem; color: var(--hint); margin: 4px 0 0 0;">Deposit & Pay</p>
+        <div class="balance-box">
+            <div class="balance-title">Telebirr Wallet</div>
+            <div class="balance-value" style="color: var(--accent-green);">ETB <span id="telebirr-val">0.00</span></div>
         </div>
     </div>
 
-    <!-- Main Action Button -->
-    <button class="btn-primary" onclick="sendDataToBot()">
-        🚀 Main Action Perform
-    </button>
+    <!-- TAB 1: HOME -->
+    <div id="tab-home" class="tab-content active">
+        <div class="card">
+            <div class="card-title">🚀 Tajaajiloota Ijoo</div>
+            <div class="package-item" onclick="switchTab('stars')">
+                <div class="package-info">
+                    <strong>⭐ Buy Telegram Stars</strong>
+                    <span>Stars tolaa fi madaalawaa bitachuuf</span>
+                </div>
+                <button class="action-btn">Biti</button>
+            </div>
+            <div class="package-item" onclick="switchTab('telebirr')">
+                <div class="package-info">
+                    <strong>📲 Telebirr Deposit</strong>
+                    <span>Qarshii wallet keettitti dabaluuf</span>
+                </div>
+                <button class="action-btn" style="background: #16a34a;">Deposit</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📢 Odeeffannoo</div>
+            <p style="font-size: 0.85rem; color: var(--text-sub); line-height: 1.4;">
+                Mini App kana keessatti tajaajila Stars Bituu fi Telebirr-n kaffaltii raawwachuu salphaatti danda'tu!
+            </p>
+        </div>
+    </div>
+
+    <!-- TAB 2: BUY STARS -->
+    <div id="tab-stars" class="tab-content">
+        <div class="card">
+            <div class="card-title">⭐ Stars Packages</div>
+            
+            <div class="package-item">
+                <div class="package-info">
+                    <strong>50 Stars</strong>
+                    <span>ETB 120.00</span>
+                </div>
+                <button class="action-btn" onclick="buyStars(50, 120)">Bitadhu</button>
+            </div>
+
+            <div class="package-item">
+                <div class="package-info">
+                    <strong>100 Stars</strong>
+                    <span>ETB 230.00</span>
+                </div>
+                <button class="action-btn" onclick="buyStars(100, 230)">Bitadhu</button>
+            </div>
+
+            <div class="package-item">
+                <div class="package-info">
+                    <strong>500 Stars</strong>
+                    <span>ETB 1,100.00</span>
+                </div>
+                <button class="action-btn" onclick="buyStars(500, 1100)">Bitadhu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: TELEBIRR -->
+    <div id="tab-telebirr" class="tab-content">
+        <div class="card">
+            <div class="card-title">📲 Telebirr Recharge</div>
+            <div class="form-group">
+                <label>Lakkoofsa Bilbilaa (Telebirr)</label>
+                <input type="number" id="phone-num" class="form-control" placeholder="09........">
+            </div>
+            <div class="form-group">
+                <label>Hanga Qarshii (ETB)</label>
+                <input type="number" id="amount-etb" class="form-control" placeholder="fkn. 100">
+            </div>
+            <button class="action-btn btn-full" style="background: #16a34a;" onclick="processTelebirr()">Deposit Gochi</button>
+        </div>
+    </div>
+
+    <!-- TAB 4: ACCOUNT / HISTORY -->
+    <div id="tab-account" class="tab-content">
+        <div class="card">
+            <div class="card-title">👤 Account Details</div>
+            <p style="font-size: 0.85rem; margin-bottom: 6px;">Maqaa: <strong id="acc-name">-</strong></p>
+            <p style="font-size: 0.85rem;">User ID: <strong id="acc-id">-</strong></p>
+        </div>
+        <div class="card">
+            <div class="card-title">📜 Seenaa Kaffaltii (History)</div>
+            <div id="history-list" style="font-size: 0.8rem; color: var(--text-sub);">
+                Hanga ammaatti kaffaltiin hin raawwatamne.
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('home')">
+            <span>🏠</span> Home
+        </button>
+        <button class="tab-btn" onclick="switchTab('stars')">
+            <span>⭐</span> Stars
+        </button>
+        <button class="tab-btn" onclick="switchTab('telebirr')">
+            <span>📲</span> Telebirr
+        </button>
+        <button class="tab-btn" onclick="switchTab('account')">
+            <span>👤</span> Account
+        </button>
+    </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
         tg.ready();
 
-        // User Data Set Gochuu
+        let starsBalance = 150;
+        let telebirrBalance = 0;
+
+        // Telegram User Data Set Gochuu
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            document.getElementById('user-name').innerText = tg.initDataUnsafe.user.first_name;
+            const u = tg.initDataUnsafe.user;
+            document.getElementById('user-display-name').innerText = u.first_name;
+            document.getElementById('acc-name').innerText = u.first_name + (u.last_name ? " " + u.last_name : "");
+            document.getElementById('acc-id').innerText = u.id;
         }
 
-        function showAlert(msg) {
-            tg.showAlert("Tajaajila: " + msg + " dhiyootti ni saaqama!");
+        // Tab Switching Logic
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            const btnIndex = { 'home': 0, 'stars': 1, 'telebirr': 2, 'account': 3 }[tabName];
+            document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
         }
 
-        function sendDataToBot() {
-            tg.sendData(JSON.stringify({ action: "user_clicked_main_btn" }));
-            tg.close();
+        // Buy Stars Action
+        function buyStars(amount, price) {
+            tg.showConfirm(`⭐ ${amount} Stars ETB ${price}-n bitachuu ni barbaaddaa?`, function(confirmed) {
+                if (confirmed) {
+                    starsBalance += amount;
+                    document.getElementById('stars-val').innerText = starsBalance;
+                    addHistory(`Bitame: ⭐ ${amount} Stars (ETB ${price})`);
+                    tg.showAlert(`Milkaa'ina: ⭐ ${amount} Stars Wallet keetti dabalameera!`);
+                }
+            });
+        }
+
+        // Telebirr Process Action
+        function processTelebirr() {
+            const phone = document.getElementById('phone-num').value;
+            const amount = parseFloat(document.getElementById('amount-etb').value);
+
+            if (!phone || phone.length < 9) {
+                tg.showAlert("Maaloo lakkoofsa bilbilaa sirrii galchaa!");
+                return;
+            }
+            if (!amount || amount <= 0) {
+                tg.showAlert("Maaloo hanga qarshii sirrii galchaa!");
+                return;
+            }
+
+            telebirrBalance += amount;
+            document.getElementById('telebirr-val').innerText = telebirrBalance.toFixed(2);
+            addHistory(`Deposit: ETB ${amount.toFixed(2)} (${phone})`);
+            
+            document.getElementById('phone-num').value = '';
+            document.getElementById('amount-etb').value = '';
+
+            tg.showAlert(`Milkaa'ina: ETB ${amount.toFixed(2)} Telebirr Wallet keetti dabalameera!`);
+        }
+
+        function addHistory(text) {
+            const hist = document.getElementById('history-list');
+            if (hist.innerText.includes("Hanga ammaatti")) {
+                hist.innerHTML = '';
+            }
+            const div = document.createElement('div');
+            div.style.padding = '6px 0';
+            div.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+            div.innerText = "• " + text;
+            hist.prepend(div);
         }
     </script>
 </body>
